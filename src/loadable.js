@@ -31,6 +31,28 @@ function loadable(
       return LoadableComponent.loadingPromise
     }
 
+    static contextTypes = {
+      parentComponentId: () => {},
+    }
+
+    static childContextTypes = {
+      parentComponentId: () => {},
+    }
+
+    getChildContext() {
+      if (typeof LoadableComponent.componentId === 'undefined') {
+        const componentId = componentTracker.track(
+          this.context.parentComponentId,
+          LoadableComponent,
+        )
+        LoadableComponent.componentId = componentId
+      }
+
+      return {
+        parentComponentId: LoadableComponent.componentId,
+      }
+    }
+
     state = {
       Component: LoadableComponent.Component,
       error: null,
@@ -78,9 +100,7 @@ function loadable(
     }
   }
 
-  const id = componentTracker.track(LoadableComponent)
   LoadableComponent[LOADABLE] = () => LoadableComponent
-  LoadableComponent.componentId = id
 
   return LoadableComponent
 }

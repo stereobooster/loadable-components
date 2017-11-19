@@ -1,10 +1,11 @@
-let currentId = 0
+const currentIds = {}
 const components = {}
 
-export const track = component => {
-  const id = currentId
+export const track = (parentComponentId = 'root', component) => {
+  currentIds[parentComponentId] = currentIds[parentComponentId] || 0
+  const id = `${parentComponentId}_${currentIds[parentComponentId]}`
   components[id] = component
-  currentId += 1
+  currentIds[parentComponentId] += 1
   return id
 }
 
