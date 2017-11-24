@@ -1,6 +1,6 @@
 {
   "name": "react-snap-loadable-components",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Fork of loadable-components.",
   "main": "index.js",
   "repository": "git@github.com:smooth-code/loadable-components.git",
